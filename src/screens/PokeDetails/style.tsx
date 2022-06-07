@@ -11,6 +11,7 @@ const StyleDetails = StyleSheet.create({
     color: 'black',
     fontSize: 16,
   },
+  imgStyle: {width: 300, height: 300},
 });
 
 export default StyleDetails;

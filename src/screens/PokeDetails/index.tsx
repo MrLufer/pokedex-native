@@ -70,7 +70,7 @@ const PokeDetails = () => {
           source={{
             uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
           }}
-          style={{width: 300, height: 300}}
+          style={StyleDetails.imgStyle}
         />
       </View>
       <View style={{paddingHorizontal: 15, marginTop: 20}}>

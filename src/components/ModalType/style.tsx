@@ -22,6 +22,8 @@ const StyleModal = StyleSheet.create({
     paddingHorizontal: 14,
     height: height * 0.8,
   },
+  title: {fontWeight: 'bold', fontSize: 18, marginBottom: 15},
+  textType: {alignItems: 'center', justifyContent: 'center'},
 });
 
 export default StyleModal;

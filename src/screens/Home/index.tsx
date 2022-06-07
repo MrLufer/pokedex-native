@@ -6,17 +6,23 @@ import {IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import ModalType from '../../components/ModalType';
 import useTypes from '../../hooks/useTypes';
+import StyleHome from './style';
 
 const Home = () => {
   const [pokemon] = useRegion();
   const [filterTypes, setFilterTypes] = useState([]);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
   const {pokeTypes} = useTypes(filterTypes);
 
-  const pokemonsList = pokemon.filter(poke =>
-    pokeTypes.some(type => type.pokemon.name === poke.name),
-  );
+  const pokemonsList = () => {
+    if (filterTypes.length === 0) {
+      return pokemon;
+    }
+    return pokemon.filter(poke =>
+      pokeTypes.some(type => type.pokemon.name === poke.name),
+    );
+  };
 
   const renderItem = ({item}: any) => (
     <CardPokemon id={item.id} name={item.name} picture={item.picture} />
@@ -24,9 +30,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={{paddingHorizontal: 15, marginBottom: 50}}>
-      <Text style={{color: '#e73134', fontSize: 26, fontWeight: 'bold'}}>
-        Pokédex
-      </Text>
+      <Text style={StyleHome.title}>Pokédex</Text>
 
       <View style={{paddingVertical: 10, flexDirection: 'row'}}>
         <View style={{flex: 1}}>
@@ -50,7 +54,7 @@ const Home = () => {
       </View>
       <View style={{marginBottom: 50}}>
         <FlatList
-          data={pokemonsList}
+          data={pokemonsList()}
           renderItem={renderItem}
           keyExtractor={item => item.name}
           contentContainerStyle={{paddingBottom: 100}}

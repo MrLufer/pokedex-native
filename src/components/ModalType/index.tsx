@@ -2,7 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {Checkbox, Modal, Portal, IconButton} from 'react-native-paper';
 import pokeApi from '../../api/pokeApi';
 import {ScrollView, Text, View, Dimensions} from 'react-native';
+import StyleModal from './style';
 export const {height} = Dimensions.get('window');
+
+interface typeProps {
+  name: string;
+  url: string;
+}
 
 const ModalType = ({visible, onClose, filterTypes, setFilterTypes}: any) => {
   const [types, setTypes] = useState([]);
@@ -17,7 +23,7 @@ const ModalType = ({visible, onClose, filterTypes, setFilterTypes}: any) => {
       setTypes(response.data.results);
     }
   };
-  const addType = name => {
+  const addType = (name: typeProps) => {
     if (filterTypes.includes(name)) {
       setFilterTypes(filterTypes.filter(type => type !== name));
     } else {
@@ -43,10 +49,7 @@ const ModalType = ({visible, onClose, filterTypes, setFilterTypes}: any) => {
           }}>
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 1, justifyContent: 'center'}}>
-              <Text
-                style={{fontWeight: 'bold', fontSize: 18, marginBottom: 15}}>
-                Filtra los tipos de pokemon
-              </Text>
+              <Text style={StyleModal.title}>Filtra los tipos de pokemon</Text>
             </View>
 
             <IconButton
@@ -72,8 +75,7 @@ const ModalType = ({visible, onClose, filterTypes, setFilterTypes}: any) => {
                       }}
                     />
                   </View>
-                  <View
-                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                  <View style={StyleModal.textType}>
                     <Text>{type.name}</Text>
                   </View>
                 </View>

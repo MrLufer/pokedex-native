@@ -11,7 +11,7 @@ const Favorites = () => {
   const {favorites} = useFavorite();
   const navigation = useNavigation();
 
-  const renderItem = ({item}) => (
+  const renderItem = ({item}: any) => (
     <CardPokemon id={item.id} name={item.name} picture={item.picture} />
   );
 
@@ -24,7 +24,7 @@ const Favorites = () => {
           navigation.goBack();
         }}
       />
-      <View style={{paddingHorizontal: 15}}>
+      <View style={StyleFavorites.container}>
         <Text style={StyleFavorites.title}>
           Your favorite pokemons will be here
         </Text>
