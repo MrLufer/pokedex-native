@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import pokeApi from '../api/pokeApi';
 
 const useRegion = () => {
-  const [pokemon, setRegion] = useState(null);
+  const [pokemon, setRegion] = useState([]);
 
   useEffect(() => {
     getRegion();
@@ -23,8 +23,6 @@ const useRegion = () => {
       setRegion(pokemonFormat);
     }
   };
-
-  console.log(pokemon);
 
   return [pokemon];
 };

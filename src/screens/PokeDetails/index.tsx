@@ -1,16 +1,17 @@
 import React from 'react';
 import {SafeAreaView, Text, Image, View} from 'react-native';
-import {useRoute} from '@react-navigation/native';
+import {useRoute, useNavigation} from '@react-navigation/native';
+import {IconButton} from 'react-native-paper';
 import usePokemon from '../../hooks/usePokemon';
 import StyleDetails from './style';
+import useFavorite from '../../hooks/useFavorite';
 
 const PokeDetails = () => {
   const route = useRoute();
   const {id, color, name} = route.params;
-
+  const navigation = useNavigation();
   const {pokemon} = usePokemon(id);
-
-  console.log(pokemon);
+  const {addFavorite} = useFavorite();
 
   const formatStat = (str: string) => {
     const stat = str.charAt(0).toUpperCase() + str.slice(1);
@@ -31,6 +32,13 @@ const PokeDetails = () => {
           transform: [{scaleX: 2}],
         }}
       />
+      <IconButton
+        icon="arrow-left"
+        color="#fff"
+        onPress={() => {
+          navigation.goBack();
+        }}
+      />
       <View style={{paddingHorizontal: 15}}>
         <Text
           style={{
@@ -41,9 +49,23 @@ const PokeDetails = () => {
           }}>
           #{id}
         </Text>
-        <Text style={{color: 'white', fontWeight: 'bold', fontSize: 30}}>
-          {formatStat(name)}
-        </Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{color: 'white', fontWeight: 'bold', fontSize: 30}}>
+            {formatStat(name)}
+          </Text>
+          <IconButton
+            icon="heart"
+            color="white"
+            onPress={() => {
+              addFavorite({
+                id,
+                picture: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+                name,
+              });
+            }}
+          />
+        </View>
+
         <Image
           source={{
             uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
